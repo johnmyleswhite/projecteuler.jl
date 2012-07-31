@@ -55,6 +55,7 @@ pollard_rho(1729)
 pollard_rho(2 * 2 * 3 * 3 * 5)
 # Need to refactor numbers.
 
+# This is actually solution to 003.
 factors = pollard_rho(600851475143)
 map(q -> is_prime(q), factors)
 
