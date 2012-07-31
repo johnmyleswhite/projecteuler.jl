@@ -1,38 +1,40 @@
-# Do the dumbest possible factorization.
-function factorize(n)
-  m = n
-  factors = zeros(Int, 0)
-  baseline = 2
-  while m != 1
-    for i in baseline:m
-      if rem(m, i) == 0
-        # Switch to pulling out largest multiple of i allowed
-        baseline = i
-        m = div(m, i)
-        push(factors, i)
-      end
+#Inputs: n, the integer to be factored; and f(x), a pseudo-random function modulo n
+#Output: a non-trivial factor of n, or failure.
+
+load("lib/primality.jl")
+
+function inner_pollard_rho(n, f)
+  x = 2
+  y = 2
+  d = 1
+  while d == 1
+    x = f(x)
+    y = f(f(y))
+    d = gcd(abs(x - y), int(n))
+    if d == n
+      return 1
+    else
+      return d
     end
   end
-  factors
 end
 
-# Try recursion?
-function factorize(n)
+function pollard_rho(n)
   m = n
   factors = zeros(Int, 0)
-  baseline = 2
-  while m != 1
-    for i in baseline:m
-      if rem(m, i) == 0
-        baseline = i
-        while rem(m, i) == 0
-          m = div(m, i)
-        end
-        push(factors, i)
-      end
+  while m != 1 && !is_prime(m)
+    d = inner_pollard_rho(m, x -> randi(m))
+    if d != 1
+      m = int(m / d)
+      push(factors, d)
     end
   end
-  factors
+  if m != 1
+    push(factors, m)
+  end
+  sort(factors)
 end
 
-# Switch to Pollard rho
+function factorize(n)
+  pollard_rho(n)
+end
