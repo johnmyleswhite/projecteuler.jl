@@ -1,33 +1,20 @@
-# Sum of multiples of 3 or 5 below 1000
-# Add up all multiples of 3
-# Add up all multiples of 5
-# Subtract overlap, which consists of multiples of 15.
+load("lib/uncategorized.jl")
 
-function bounded_multiples(bound, n)
-  if rem(bound, n) == 0
-    [0:n:(n * (div(bound, n) - 1))]
-  else
-    [0:n:(n * div(bound, n))]
-  end
-end
-
-# Below 10
+# Confirm that approach works for natural numbers below 10
 upper_bound = 10
 multiples_of_3 = bounded_multiples(upper_bound, 3)
 multiples_of_5 = bounded_multiples(upper_bound, 5)
 multiples_of_15 = bounded_multiples(upper_bound, 15)
-
 sum(multiples_of_3) + sum(multiples_of_5) - sum(multiples_of_15)
 
-# Below 1000
+# Use to solve problem for numbers below 1000
 upper_bound = 1000
 multiples_of_3 = bounded_multiples(upper_bound, 3)
 multiples_of_5 = bounded_multiples(upper_bound, 5)
 multiples_of_15 = bounded_multiples(upper_bound, 15)
-
 sum(multiples_of_3) + sum(multiples_of_5) - sum(multiples_of_15)
 
-# Error checking mechanism
+# Slow code to serve as an error checking mechanism.
 total_sum = 0
 for n in 1:1000
   if rem(n, 3) == 0 || rem(n, 5) == 0

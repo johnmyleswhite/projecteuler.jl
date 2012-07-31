@@ -1,0 +1,21 @@
+# Problem Statement
+
+# Solution Strategy
+* Even Fibonacci numbers occur once every three numbers
+* Why?
+* Sum of two odds is even
+* Sum of odd and even is odd
+* So pattern is
+* 1, 2, 3, 5, 8, 13, 21, ...
+* ODD, EVEN, ODD, ODD, EVEN
+
+* Another cleaner way to write this is
+* 1, 1, 2, 3, 5, 8, 13, 21, ...
+* ODD, ODD, EVEN, ODD, ODD, EVEN
+
+* So only Fibonacci numbers with indices of the form `3k + 2` are even
+* So list Fibonacci numbers below bound
+* Find top index, store in `index_of_bound`
+* Indices to even Fibonacci numbers are then simply `[2:3:index_of_bound]`
+* Answer is `sum(fibs[indices])`
+

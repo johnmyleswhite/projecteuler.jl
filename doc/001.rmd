@@ -1,0 +1,7 @@
+# Problem Statement
+
+# Solution
+* Sum of multiples of 3 or 5 below 1000
+* Add up all multiples of 3
+* Add up all multiples of 5
+* Subtract overlap, which consists of multiples of 15.
