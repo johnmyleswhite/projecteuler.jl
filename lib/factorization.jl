@@ -1,8 +1,7 @@
-#Inputs: n, the integer to be factored; and f(x), a pseudo-random function modulo n
-#Output: a non-trivial factor of n, or failure.
-
 load("lib/primality.jl")
 
+#Inputs: n, the integer to be factored; and f(x), a pseudo-random function modulo n
+#Output: a non-trivial factor of n or failure signaled as the trivial factor, 1.
 function inner_pollard_rho(n, f)
   x = 2
   y = 2
@@ -55,21 +54,3 @@ function fundamental_theorem(n)
   end
   factorization
 end
-
-# Separate enumeration and counting.
-function divisors(n)
-  # If object is p1^e1...pk^ek, there are (e1 + 1) * ... * (ek + 1) divisors.
-  factorization = fundamental_theorem(n)
-  d = 1
-  for prime = keys(factorization)
-    d *= (factorization[prime] + 1)
-  end
-  d
-end
-
-@assert divisors(8) == 4
-@assert divisors(8 * 3) == 8
-@assert divisors(8 * 9) == 12
-
-# divisor
-# totient
