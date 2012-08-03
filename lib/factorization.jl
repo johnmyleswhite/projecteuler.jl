@@ -24,7 +24,7 @@ function pollard_rho(n)
   factors = zeros(Int, 0)
   while m != 1 && !is_prime(m)
     d = inner_pollard_rho(m, x -> randi(m))
-    if d != 1
+    if is_prime(d)
       m = int(m / d)
       push(factors, d)
     end
@@ -38,3 +38,38 @@ end
 function factorize(n)
   pollard_rho(n)
 end
+
+function numeric_insert(hash, key)
+  if has(hash, key)
+    hash[key] += 1
+  else
+    hash[key] = 1
+  end
+end
+
+function fundamental_theorem(n)
+  factors = factorize(n)
+  factorization = Dict()
+  for factor = factors
+    numeric_insert(factorization, factor)
+  end
+  factorization
+end
+
+# Separate enumeration and counting.
+function divisors(n)
+  # If object is p1^e1...pk^ek, there are (e1 + 1) * ... * (ek + 1) divisors.
+  factorization = fundamental_theorem(n)
+  d = 1
+  for prime = keys(factorization)
+    d *= (factorization[prime] + 1)
+  end
+  d
+end
+
+@assert divisors(8) == 4
+@assert divisors(8 * 3) == 8
+@assert divisors(8 * 9) == 12
+
+# divisor
+# totient

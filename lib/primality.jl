@@ -1,4 +1,8 @@
 function is_prime(n)
+  if n == 1
+    return false
+  end
+  
   for i = 2:floor(sqrt(n))
     if rem(n, i) == 0
       return false
