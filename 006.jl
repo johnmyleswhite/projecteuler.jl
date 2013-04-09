@@ -8,13 +8,7 @@
 
 #Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
 
-function sum_of_squares(n)
-  int((n * (n + 1) * (2n + 1)) / 6)
-end
-
-function sum_of_naturals(n)
-  int((n * (n + 1)) / 2)
-end
+load("lib/identities.jl")
 
 a = 100
 sum_of_naturals(a)^2 - sum_of_squares(a)
